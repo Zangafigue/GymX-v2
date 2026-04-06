@@ -1,0 +1,92 @@
+
+> gymx-v2@0.0.0 build
+> tsc -b && vite build
+
+src/components/ClassModal.tsx(2,69): error TS6133: 'CheckCircle2' is declared but its value is never read.
+src/components/Footer.tsx(2,10): error TS2305: Module '"lucide-react"' has no exported member 'Facebook'.
+src/components/Footer.tsx(2,20): error TS2305: Module '"lucide-react"' has no exported member 'Instagram'.
+src/components/Footer.tsx(2,31): error TS2305: Module '"lucide-react"' has no exported member 'Youtube'.
+src/components/Footer.tsx(64,17): error TS2352: Conversion of type 'string' to type 'string[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+src/components/Footer.tsx(64,39): error TS2322: Type 'boolean' is not assignable to type 'string | number'.
+src/components/Hero.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(92,19): error TS2322: Type '{ children: string; href: string; variant: "primary"; size: "sm"; className: string; icon: Element; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'href' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+src/components/Navbar.tsx(106,21): error TS2322: Type '{ children: string; href: string; variant: "primary"; size: "sm"; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'href' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+src/components/Navbar.tsx(131,8): error TS2304: Cannot find name 'AnimatePresence'.
+src/components/Navbar.tsx(133,12): error TS2552: Cannot find name 'motion'. Did you mean 'Option'?
+src/components/Navbar.tsx(142,18): error TS2552: Cannot find name 'motion'. Did you mean 'Option'?
+src/components/Navbar.tsx(152,19): error TS2552: Cannot find name 'motion'. Did you mean 'Option'?
+src/components/Navbar.tsx(169,25): error TS2322: Type '{ children: string; href: string; onClick: () => void; size: "lg"; fullWidth: true; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'href' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+src/components/Navbar.tsx(179,27): error TS2322: Type '{ children: string; href: string; variant: "ghost"; onClick: () => void; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'href' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+src/components/Navbar.tsx(187,27): error TS2322: Type '{ children: string; href: string; onClick: () => void; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'href' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+src/components/Navbar.tsx(197,13): error TS2552: Cannot find name 'motion'. Did you mean 'Option'?
+src/components/Navbar.tsx(199,9): error TS2304: Cannot find name 'AnimatePresence'.
+src/components/Pricing.tsx(1,17): error TS6133: 'Star' is declared but its value is never read.
+src/components/Schedule.tsx(208,36): error TS2322: Type '"danger" | "success"' is not assignable to type 'BadgeVariant | undefined'.
+  Type '"danger"' is not assignable to type 'BadgeVariant | undefined'.
+src/components/Sidebar.tsx(2,1): error TS6192: All imports in import declaration are unused.
+src/components/Sidebar.tsx(13,76): error TS2304: Cannot find name 'LayoutDashboard'.
+src/components/Sidebar.tsx(14,77): error TS2304: Cannot find name 'MapPin'.
+src/components/Sidebar.tsx(15,76): error TS2304: Cannot find name 'Users'.
+src/components/Sidebar.tsx(16,76): error TS2304: Cannot find name 'Calendar'.
+src/components/Sidebar.tsx(17,76): error TS2304: Cannot find name 'User'.
+src/components/Sidebar.tsx(18,76): error TS2304: Cannot find name 'Settings'.
+src/components/Sidebar.tsx(22,83): error TS2304: Cannot find name 'Dumbbell'.
+src/components/Sidebar.tsx(23,83): error TS2304: Cannot find name 'CheckSquare'.
+src/components/Sidebar.tsx(24,83): error TS2304: Cannot find name 'User'.
+src/components/Sidebar.tsx(25,83): error TS2304: Cannot find name 'Settings'.
+src/components/Sidebar.tsx(34,12): error TS2304: Cannot find name 'Dumbbell'.
+src/components/Sidebar.tsx(43,12): error TS2304: Cannot find name 'NavLink'.
+src/components/Sidebar.tsx(47,27): error TS7031: Binding element 'isActive' implicitly has an 'any' type.
+src/components/Sidebar.tsx(57,13): error TS2304: Cannot find name 'NavLink'.
+src/components/Sidebar.tsx(66,12): error TS2304: Cannot find name 'LogOut'.
+src/components/Trainers.tsx(2,10): error TS2305: Module '"lucide-react"' has no exported member 'Instagram'.
+src/components/Trainers.tsx(2,21): error TS2305: Module '"lucide-react"' has no exported member 'Twitter'.
+src/components/Trainers.tsx(2,30): error TS2305: Module '"lucide-react"' has no exported member 'Facebook'.
+src/components/modals/LogoutModal.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ui/Input.tsx(3,11): error TS2430: Interface 'InputProps' incorrectly extends interface 'InputHTMLAttributes<HTMLInputElement>'.
+  Types of property 'prefix' are incompatible.
+    Type 'ReactNode' is not assignable to type 'string | undefined'.
+      Type 'null' is not assignable to type 'string | undefined'.
+src/context/I18nContext.tsx(11,8): error TS6133: 'React' is declared but its value is never read.
+src/context/I18nContext.tsx(21,6): error TS6196: 'Translations' is declared but never used.
+src/lib/api.ts(16,3): error TS2305: Module '"../types"' has no exported member 'AuthCredentials'.
+src/pages/admin/Classes.tsx(288,9): error TS2322: Type '(data: GymClassFormData) => Promise<void>' is not assignable to type '(data: GymClassForm) => Promise<void>'.
+  Types of parameters 'data' and 'data' are incompatible.
+    Type 'GymClassForm' is not assignable to type 'GymClassFormData'.
+      Types of property 'type' are incompatible.
+        Type 'string' is not assignable to type 'ClassType'.
+src/pages/admin/Dashboard.tsx(14,18): error TS6133: 'AnimatePresence' is declared but its value is never read.
+src/pages/admin/Dashboard.tsx(242,48): error TS2322: Type '"secondary" | "default"' is not assignable to type 'BadgeVariant | undefined'.
+  Type '"secondary"' is not assignable to type 'BadgeVariant | undefined'.
+src/pages/admin/Dashboard.tsx(310,9): error TS2322: Type '(data: GymClassFormData) => Promise<void>' is not assignable to type '(data: GymClassForm) => Promise<void>'.
+  Types of parameters 'data' and 'data' are incompatible.
+    Type 'GymClassForm' is not assignable to type 'GymClassFormData'.
+      Types of property 'type' are incompatible.
+        Type 'string' is not assignable to type 'ClassType'.
+src/pages/admin/Users.tsx(10,3): error TS6133: 'SearchX' is declared but its value is never read.
+src/pages/admin/Users.tsx(62,38): error TS2322: Type '"admin" | "member"' is not assignable to type 'Role | undefined'.
+  Type '"member"' is not assignable to type 'Role | undefined'.
+src/pages/admin/Users.tsx(64,19): error TS2345: Argument of type '(prev: Profile[]) => (Profile | { role: "admin" | "member"; id: string; full_name: string; avatar_url?: string | undefined; created_at: string; updated_at?: string | undefined; })[]' is not assignable to parameter of type 'SetStateAction<Profile[]>'.
+  Type '(prev: Profile[]) => (Profile | { role: "admin" | "member"; id: string; full_name: string; avatar_url?: string | undefined; created_at: string; updated_at?: string | undefined; })[]' is not assignable to type '(prevState: Profile[]) => Profile[]'.
+    Type '(Profile | { role: "admin" | "member"; id: string; full_name: string; avatar_url?: string | undefined; created_at: string; updated_at?: string | undefined; })[]' is not assignable to type 'Profile[]'.
+      Type 'Profile | { role: "admin" | "member"; id: string; full_name: string; avatar_url?: string | undefined; created_at: string; updated_at?: string | undefined; }' is not assignable to type 'Profile'.
+        Type '{ role: "admin" | "member"; id: string; full_name: string; avatar_url?: string; created_at: string; updated_at?: string; }' is not assignable to type 'Profile'.
+          Types of property 'role' are incompatible.
+            Type '"admin" | "member"' is not assignable to type 'Role'.
+              Type '"member"' is not assignable to type 'Role'.
+src/pages/member/Bookings.tsx(8,3): error TS6133: 'History' is declared but its value is never read.
+src/pages/member/Bookings.tsx(15,18): error TS6133: 'AnimatePresence' is declared but its value is never read.
+src/pages/member/Bookings.tsx(65,25): error TS2339: Property 'cancel' does not exist on type '{ getByUser: (userId: string) => Promise<Booking[]>; getAll: () => Promise<Booking[]>; checkExisting: (userId: string, classId: string) => Promise<boolean>; create: (userId: string, classId: string) => Promise<...>; delete: (bookingId: string) => Promise<...>; }'.
+src/pages/member/Bookings.tsx(133,48): error TS2322: Type '"outline"' is not assignable to type 'BadgeVariant | undefined'.
+src/pages/member/Bookings.tsx(134,46): error TS18048: 'booking.classes' is possibly 'undefined'.
+src/pages/member/Bookings.tsx(138,188): error TS18048: 'booking.classes' is possibly 'undefined'.
+src/pages/member/Bookings.tsx(140,157): error TS18048: 'booking.classes' is possibly 'undefined'.
+src/pages/member/Bookings.tsx(140,181): error TS18048: 'booking.classes' is possibly 'undefined'.
+src/pages/member/Bookings.tsx(152,136): error TS18048: 'booking.classes' is possibly 'undefined'.
+src/pages/member/Bookings.tsx(167,82): error TS18048: 'booking.classes' is possibly 'undefined'.
+src/pages/member/Dashboard.tsx(16,3): error TS6133: 'Dumbbell' is declared but its value is never read.

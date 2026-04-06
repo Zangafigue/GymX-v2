@@ -1,0 +1,255 @@
+/*
+ * tokens.css — Single source of truth for all GymX visual tokens
+ *
+ * Structure:
+ *   1. Base Palette (Raw values)
+ *   2. DARK Mode Semantic Variables (Default)
+ *   3. LIGHT Mode Semantic Variables (Override)
+ *   4. Constant Variables (Mode-independent)
+ */
+
+/* ─── 1. Base Palette ─────────────────────────────────────────────────────────
+   These variables should NOT be used directly in components.
+   They are only used to feed the semantic variables below.
+*/
+
+:root {
+  /* Reds — GymX signature colors */
+  --gymx-red-50:  #fff0f0;
+  --gymx-red-100: #ffd6d6;
+  --gymx-red-200: #ff9f9f;
+  --gymx-red-400: #ff5050;
+  --gymx-red-500: #FF3131;   /* ← Primary Color */
+  --gymx-red-600: #e01a1a;
+  --gymx-red-700: #b81212;
+  --gymx-red-800: #8a0d0d;
+  --gymx-red-900: #5c0808;
+
+  /* Dark Neutrals */
+  --gymx-neutral-0:   #ffffff;
+  --gymx-neutral-50:  #f5f5f5;
+  --gymx-neutral-100: #e8e8e8;
+  --gymx-neutral-200: #c8c8c8;
+  --gymx-neutral-300: #a0a0a0;
+  --gymx-neutral-400: #787878;
+  --gymx-neutral-500: #525252;
+  --gymx-neutral-600: #3a3a3a;
+  --gymx-neutral-700: #2a2a2a;
+  --gymx-neutral-800: #1F1F1F;
+  --gymx-neutral-850: #161616;
+  --gymx-neutral-900: #121212;
+  --gymx-neutral-950: #0A0A0A;
+
+  /* Greens (success) */
+  --gymx-green-100: #d4f5e0;
+  --gymx-green-400: #22c55e;
+  --gymx-green-500: #16a34a;
+  --gymx-green-900: #0a2e18;
+
+  /* Yellows/Ambers (warning) */
+  --gymx-amber-100: #fef3c7;
+  --gymx-amber-400: #fbbf24;
+  --gymx-amber-500: #f59e0b;
+  --gymx-amber-900: #3d1f00;
+
+  /* Blues (info) */
+  --gymx-blue-100: #dbeafe;
+  --gymx-blue-400: #60a5fa;
+  --gymx-blue-500: #3b82f6;
+  --gymx-blue-900: #0f2057;
+}
+
+/* ─── 2. Semantic Variables — DARK MODE (GymX Default) ──────────────────────
+   These variables are the ones to use in all components.
+   They automatically adapt based on the active mode.
+*/
+
+[data-theme="dark"],
+:root {  /* Dark = Default */
+
+  /* Fonds */
+  --color-bg-base:       var(--gymx-neutral-950);   /* #0A0A0A — main background */
+  --color-bg-subtle:     var(--gymx-neutral-900);   /* #121212 — secondary background */
+  --color-bg-muted:      var(--gymx-neutral-800);   /* #1F1F1F — cards, inputs */
+  --color-bg-elevated:   var(--gymx-neutral-700);   /* #2A2A2A — elevated elements */
+  --color-bg-overlay:    rgba(0, 0, 0, 0.80);       /* Modal overlays */
+
+  /* Surfaces (cards, panels) */
+  --color-surface-1:     rgba(31, 31, 31, 0.40);    /* glass-card */
+  --color-surface-2:     rgba(18, 18, 18, 0.60);    /* sidebar */
+  --color-surface-3:     rgba(42, 42, 42, 0.30);    /* hover states */
+
+  /* Textes */
+  --color-text-primary:   var(--gymx-neutral-0);    /* #ffffff — main text */
+  --color-text-secondary: var(--gymx-neutral-300);  /* #a0a0a0 — secondary text */
+  --color-text-muted:     var(--gymx-neutral-500);  /* #525252 — disabled text */
+  --color-text-inverse:   var(--gymx-neutral-950);  /* Text on light background */
+
+  /* Bordures */
+  --color-border-subtle:  rgba(255, 255, 255, 0.05);
+  --color-border-default: rgba(255, 255, 255, 0.10);
+  --color-border-strong:  rgba(255, 255, 255, 0.20);
+
+  /* Primary Color (Red) */
+  --color-primary:        var(--gymx-red-500);      /* #FF3131 */
+  --color-primary-hover:  var(--gymx-red-600);      /* #e01a1a */
+  --color-primary-muted:  rgba(255, 49, 49, 0.10);  /* translucent red background */
+  --color-primary-border: rgba(255, 49, 49, 0.20);  /* translucent red border */
+
+  /* Semantic States */
+  --color-success:        var(--gymx-green-400);
+  --color-success-bg:     rgba(34, 197, 94, 0.10);
+  --color-success-border: rgba(34, 197, 94, 0.20);
+
+  --color-warning:        var(--gymx-amber-400);
+  --color-warning-bg:     rgba(251, 191, 36, 0.10);
+  --color-warning-border: rgba(251, 191, 36, 0.20);
+
+  --color-error:          var(--gymx-red-500);
+  --color-error-bg:       rgba(255, 49, 49, 0.10);
+  --color-error-border:   rgba(255, 49, 49, 0.20);
+
+  --color-info:           var(--gymx-blue-400);
+  --color-info-bg:        rgba(96, 165, 250, 0.10);
+  --color-info-border:    rgba(96, 165, 250, 0.20);
+
+  /* Input */
+  --color-input-bg:       var(--gymx-neutral-900);
+  --color-input-border:   rgba(255, 255, 255, 0.10);
+  --color-input-focus:    var(--gymx-red-500);
+  --color-input-text:     var(--gymx-neutral-0);
+  --color-input-placeholder: var(--gymx-neutral-500);
+
+  /* Scrollbar */
+  --color-scrollbar-track: var(--gymx-neutral-900);
+  --color-scrollbar-thumb: var(--gymx-neutral-600);
+}
+
+/* ─── 3. Semantic Variables — LIGHT MODE ────────────────────────────────────
+   Only overrides variables that change.
+   Anything not listed here keeps the dark value.
+*/
+
+[data-theme="light"] {
+
+  /* Backgrounds */
+  --color-bg-base:       var(--gymx-neutral-50);
+  --color-bg-subtle:     var(--gymx-neutral-100);
+  --color-bg-muted:      var(--gymx-neutral-0);
+  --color-bg-elevated:   var(--gymx-neutral-0);
+  --color-bg-overlay:    rgba(0, 0, 0, 0.50);
+
+  /* Surfaces */
+  --color-surface-1:     rgba(255, 255, 255, 0.80);
+  --color-surface-2:     rgba(255, 255, 255, 0.95);
+  --color-surface-3:     rgba(0, 0, 0, 0.04);
+
+  /* Texts */
+  --color-text-primary:   var(--gymx-neutral-950);
+  --color-text-secondary: var(--gymx-neutral-600);
+  --color-text-muted:     var(--gymx-neutral-400);
+  --color-text-inverse:   var(--gymx-neutral-0);
+
+  /* Borders */
+  --color-border-subtle:  rgba(0, 0, 0, 0.05);
+  --color-border-default: rgba(0, 0, 0, 0.10);
+  --color-border-strong:  rgba(0, 0, 0, 0.20);
+
+  /* Primary Color — slightly darker in light for contrast */
+  --color-primary:        var(--gymx-red-600);
+  --color-primary-hover:  var(--gymx-red-700);
+
+  /* Input */
+  --color-input-bg:       var(--gymx-neutral-0);
+  --color-input-border:   rgba(0, 0, 0, 0.15);
+  --color-input-text:     var(--gymx-neutral-950);
+  --color-input-placeholder: var(--gymx-neutral-400);
+
+  /* Scrollbar */
+  --color-scrollbar-track: var(--gymx-neutral-100);
+  --color-scrollbar-thumb: var(--gymx-neutral-300);
+}
+
+/* ─── 4. Constant Variables (Mode-independent) ───────────────────────────────*/
+
+:root {
+
+  /* ── Typography ── */
+  --font-display:  'Oswald', sans-serif;      /* Titles, uppercase labels */
+  --font-body:     'Inter', sans-serif;       /* Base text, UI */
+  --font-mono:     'JetBrains Mono', 'Courier New', monospace; /* Code, IDs */
+
+  /* Typography Scale */
+  --text-xs:   0.625rem;   /* 10px — uppercase labels */
+  --text-sm:   0.75rem;    /* 12px — descriptions */
+  --text-base: 0.875rem;   /* 14px — base text */
+  --text-md:   1rem;       /* 16px — normal text */
+  --text-lg:   1.125rem;   /* 18px — subtitles */
+  --text-xl:   1.25rem;    /* 20px — section titles */
+  --text-2xl:  1.5rem;     /* 24px — titles */
+  --text-3xl:  2rem;       /* 32px — large titles */
+  --text-4xl:  2.5rem;     /* 40px — hero */
+  --text-5xl:  3.5rem;     /* 56px — large hero */
+  --text-6xl:  4.5rem;     /* 72px — display */
+  --text-7xl:  6rem;       /* 96px — extra large display */
+
+  /* Weights */
+  --font-normal:    400;
+  --font-medium:    500;
+  --font-semibold:  600;
+  --font-bold:      700;
+
+  /* ── Spacing ── */
+  --space-1:  0.25rem;    /*  4px */
+  --space-2:  0.5rem;     /*  8px */
+  --space-3:  0.75rem;    /* 12px */
+  --space-4:  1rem;       /* 16px */
+  --space-5:  1.25rem;    /* 20px */
+  --space-6:  1.5rem;     /* 24px */
+  --space-8:  2rem;       /* 32px */
+  --space-10: 2.5rem;     /* 40px */
+  --space-12: 3rem;       /* 48px */
+  --space-16: 4rem;       /* 64px */
+  --space-20: 5rem;       /* 80px */
+  --space-24: 6rem;       /* 96px */
+
+  /* ── Border Radius ── */
+  --radius-sm:   0.25rem;  /*  4px — badges, small elements */
+  --radius-md:   0.5rem;   /*  8px — inputs, buttons */
+  --radius-lg:   0.75rem;  /* 12px — cards */
+  --radius-xl:   1rem;     /* 16px — large cards */
+  --radius-2xl:  1.5rem;   /* 24px — modals */
+  --radius-full: 9999px;   /* Pills, avatars */
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.40);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.50);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.60);
+  --shadow-red: 0 8px 24px rgba(255, 49, 49, 0.20);
+
+  /* ── Z-index ── */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-sidebar:  300;
+  --z-header:   400;
+  --z-modal:    500;
+  --z-toast:    600;
+  --z-tooltip:  700;
+
+  /* ── Transitions ── */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* ── Breakpoints (Reference only, not usable in native CSS) ── */
+  /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px | 2xl: 1536px */
+
+  /* ── Layout ── */
+  --sidebar-width:     16rem;     /* 256px */
+  --header-height:     5rem;      /* 80px */
+  --content-max-width: 80rem;     /* 1280px */
+  --navbar-height:     4.5rem;    /* 72px */
+}
