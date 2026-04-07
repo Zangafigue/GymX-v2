@@ -1,10 +1,9 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useTranslation } from '../../context/I18nContext';
-import { useToast } from '../../components/ui/Toast';
-import { useConfirm } from '../../components/ui/ConfirmDialog';
-import { bookingsApi, profilesApi } from '../../lib/api';
+import { useBookings } from '../../hooks/useBookings';
+import { useProfile } from '../../hooks/useProfile';
 import type { Booking } from '../../types';
 import { 
   Calendar, 
@@ -26,81 +25,36 @@ import { Input } from '../../components/ui/Input';
 const MemberDashboard = () => {
   const { user } = useAuth();
   const { t } = useTranslation();
-  const { addToast } = useToast();
-  const { confirm } = useConfirm();
+  const { bookings, loading, cancelBooking } = useBookings();
+  const { updateName, loading: updatingName } = useProfile();
   
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isEditingName, setIsEditingName] = useState(false);
   const [newName, setNewName] = useState(user?.user_metadata?.full_name || '');
-  const [updatingName, setUpdatingName] = useState(false);
-
-  const fetchMyBookings = useCallback(async () => {
-    if (!user) return;
-    setLoading(true);
-    try {
-      const data = await bookingsApi.getByUser(user.id);
-      setBookings(data);
-    } catch (err) {
-      console.error('Error fetching bookings:', err);
-      addToast({ type: 'error', message: t('errors.fetch_failed') });
-    } finally {
-      setLoading(false);
-    }
-  }, [user, t, addToast]);
 
   useEffect(() => {
     if (user) {
-      fetchMyBookings();
       setNewName(user.user_metadata?.full_name || '');
     }
-  }, [user, fetchMyBookings]);
+  }, [user]);
 
   const handleUpdateName = async () => {
-    if (!user || !newName.trim()) return;
-    
-    setUpdatingName(true);
-    try {
-      await profilesApi.update(user.id, { full_name: newName });
-      addToast({ type: 'success', message: t('profile.update_success') || 'Profile updated!' });
-      setIsEditingName(false);
-      // Optional: reload user via the provider if not reactive
-    } catch (err) {
-      addToast({ type: 'error', message: t('errors.update_failed') });
-    } finally {
-      setUpdatingName(false);
-    }
-  };
-
-  const handleCancelBooking = async (id: string, classTitle: string) => {
-    const ok = await confirm({
-      title: t('dashboard.cancel') + ' ' + classTitle,
-      message: t('bookings.cancel_confirm') || 'Are you sure you want to cancel this booking?',
-      confirmLabel: t('dashboard.cancel'),
-      variant: 'danger'
-    });
-
-    if (!ok) return;
-    
-    try {
-      await bookingsApi.delete(id);
-      addToast({ type: 'success', message: t('bookings.cancel_success') || 'Booking cancelled.' });
-      fetchMyBookings();
-    } catch (err) {
-      addToast({ type: 'error', message: t('errors.delete_failed') });
-    }
+    if (!newName.trim()) return;
+    const success = await updateName(newName);
+    if (success) setIsEditingName(false);
   };
 
   const columns = [
     {
+      key: 'class',
       header: t('dashboard.class'),
-      accessor: (b: any) => (
+      render: (b: any) => (
         <span className="font-bold text-[var(--color-text-primary)]">{b.classes?.title || 'Unknown Class'}</span>
       )
     },
     {
+      key: 'day_time',
       header: t('dashboard.day_time'),
-      accessor: (b: any) => (
+      render: (b: any) => (
         <div className="flex flex-col">
           <span className="font-medium">{b.classes?.day || '-'}</span>
           <span className="text-[var(--color-primary)] text-[10px] font-bold uppercase">{b.classes?.time || '-'}</span>
@@ -108,19 +62,21 @@ const MemberDashboard = () => {
       )
     },
     {
+      key: 'trainer',
       header: t('dashboard.trainer'),
-      accessor: (b: any) => b.classes?.trainer || t('common.pending')
+      render: (b: any) => b.classes?.trainer || t('common.pending')
     },
     {
+      key: 'actions',
       header: t('dashboard.actions'),
       align: 'right' as const,
-      accessor: (b: any) => (
+      render: (b: any) => (
         <Button 
           variant="ghost" 
           size="sm" 
           onClick={(e: React.MouseEvent) => {
             e.stopPropagation();
-            handleCancelBooking(b.id, b.classes?.title || '');
+            cancelBooking(b.id, b.classes?.title || '');
           }}
           className="text-[var(--color-text-muted)] hover:text-[var(--color-error)]"
           icon={<XCircle size={14} />}
@@ -196,6 +152,7 @@ const MemberDashboard = () => {
               columns={columns} 
               data={bookings} 
               loading={loading}
+              keyExtractor={(b: Booking) => b.id}
               emptyMessage={t('bookings.no_data') || 'No upcoming classes. Ready to start?'}
             />
           </div>

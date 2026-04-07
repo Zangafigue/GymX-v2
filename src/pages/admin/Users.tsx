@@ -84,8 +84,9 @@ const ManageUsers = () => {
 
   const columns = [
     {
+      key: 'user',
       header: t('admin.user'),
-      accessor: (p: Profile) => (
+      render: (p: Profile) => (
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 bg-[var(--color-bg-base)] rounded-full flex items-center justify-center uppercase font-bold text-[var(--color-primary)] border border-[var(--color-border-subtle)] shadow-sm">
             {p.full_name?.charAt(0) || <User size={18} />}
@@ -100,25 +101,28 @@ const ManageUsers = () => {
       )
     },
     {
+      key: 'joined_date',
       header: t('admin.joined_date'),
-      accessor: (p: Profile) => (
+      render: (p: Profile) => (
         <span className="text-sm font-medium">
           {new Date(p.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
         </span>
       )
     },
     {
+      key: 'status',
       header: t('admin.status'),
-      accessor: (p: Profile) => (
+      render: (p: Profile) => (
         <Badge variant={p.role === 'admin' ? 'primary' : 'success'} dot>
           {p.role === 'admin' ? t('admin.role_admin') : t('admin.role_member')}
         </Badge>
       )
     },
     {
+      key: 'actions',
       header: t('dashboard.actions'),
       align: 'right' as const,
-      accessor: (p: Profile) => (
+      render: (p: Profile) => (
         <Button 
           variant="secondary" 
           size="sm" 
@@ -206,6 +210,7 @@ const ManageUsers = () => {
           columns={columns} 
           data={filteredProfiles} 
           loading={loading}
+          keyExtractor={(p) => p.id}
           emptyMessage={search ? t('admin.no_results_search') || 'No users found matching your search.' : t('admin.no_data')}
         />
       </div>

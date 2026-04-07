@@ -87,6 +87,16 @@ const Login = () => {
             prefix={<Lock size={18} className="text-[var(--color-text-muted)]" />}
           />
 
+          <div className="flex justify-end -mt-4 mb-2">
+            <Link
+              to="/forgot-password"
+              className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors"
+            >
+              {language === 'fr' ? 'Mot de passe oublié ?' : 'Forgot password?'}
+            </Link>
+          </div>
+
+
           <Button 
             type="submit" 
             loading={loading}

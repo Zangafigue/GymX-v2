@@ -112,8 +112,9 @@ const ManageClasses = () => {
 
   const columns = [
     {
+      key: 'title_type',
       header: t('admin.table.title_type'),
-      accessor: (c: GymClass) => (
+      render: (c: GymClass) => (
         <div className="flex flex-col">
           <span className="font-bold text-white group-hover:text-[var(--color-primary)] transition-colors">{c.title}</span>
           <span className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-widest">{c.type}</span>
@@ -121,8 +122,9 @@ const ManageClasses = () => {
       )
     },
     {
+      key: 'day_time',
       header: t('admin.table.day_time'),
-      accessor: (c: GymClass) => (
+      render: (c: GymClass) => (
         <div className="flex items-center gap-3 text-[var(--color-text-secondary)]">
           <CalendarIcon size={14} className="text-[var(--color-primary)]" />
           <div className="flex flex-col leading-tight">
@@ -133,8 +135,9 @@ const ManageClasses = () => {
       )
     },
     {
+      key: 'trainer',
       header: t('admin.table.trainer'),
-      accessor: (c: GymClass) => (
+      render: (c: GymClass) => (
         <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
           <User size={14} className="text-[var(--color-primary)]" />
           <span className="text-sm font-medium">{c.trainer}</span>
@@ -142,9 +145,10 @@ const ManageClasses = () => {
       )
     },
     {
+      key: 'actions',
       header: t('admin.table.actions'),
-      className: 'text-right',
-      accessor: (c: GymClass) => (
+      align: 'right' as const,
+      render: (c: GymClass) => (
         <div className="flex items-center justify-end gap-3">
           <button 
             onClick={() => openEditModal(c)} 
@@ -225,6 +229,7 @@ const ManageClasses = () => {
             <DataTable 
               columns={columns}
               data={filteredClasses}
+              keyExtractor={(c) => c.id}
             />
           </div>
         ) : (

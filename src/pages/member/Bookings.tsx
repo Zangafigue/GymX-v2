@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { 
   Calendar as CalendarIcon, 
   Clock, 
@@ -12,65 +12,20 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../hooks/useAuth';
 import { useTranslation } from '../../context/I18nContext';
-import { useToast } from '../../components/ui/Toast';
-import { useConfirm } from '../../components/ui/ConfirmDialog';
-import { bookingsApi } from '../../lib/api';
+import { useBookings } from '../../hooks/useBookings';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { StatCardSkeleton } from '../../components/ui/Skeleton';
-import type { Booking } from '../../types';
-
 const MemberBookings = () => {
-  const { user } = useAuth();
   const { t } = useTranslation();
-  const { addToast } = useToast();
-  const { confirm } = useConfirm();
   const navigate = useNavigate();
 
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchBookings = useCallback(async () => {
-    if (!user) return;
-    setLoading(true);
-    try {
-      const data = await bookingsApi.getByUser(user.id);
-      setBookings(data);
-    } catch (err) {
-      console.error('Error fetching bookings:', err);
-      addToast({ type: 'error', message: t('errors.fetch_failed') });
-    } finally {
-      setLoading(false);
-    }
-  }, [user, t, addToast]);
-
-  useEffect(() => {
-    fetchBookings();
-  }, [fetchBookings]);
+  const { bookings, loading, cancelBooking: hookCancelBooking } = useBookings();
 
   const cancelBooking = async (id: string, title: string) => {
-    const ok = await confirm({
-      title: t('member.cancel_session'),
-      message: `${t('member.cancel_confirm')} (${title})`,
-      variant: 'danger',
-      confirmLabel: t('common.confirm') || 'Confirm Cancellation'
-    });
-
-    if (!ok) return;
-    
-    try {
-      await bookingsApi.delete(id);
-      addToast({ 
-        type: 'success', 
-        message: t('member.cancel_success'),
-        icon: <CheckCircle2 size={18} />
-      });
-      fetchBookings();
-    } catch (err) {
-      addToast({ type: 'error', message: t('errors.unexpected') });
-    }
+    // The hook handles the confirmation and toasts
+    await hookCancelBooking(id, title);
   };
 
   const upcomingBookings = useMemo(() => {

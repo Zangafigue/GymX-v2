@@ -24,7 +24,11 @@
     "no_account": "Don't have an account?",
     "have_account": "Already a member?",
     "signup_link": "Create an account",
-    "login_link": "Log in"
+    "login_link": "Log in",
+    "register_success": "Registration successful",
+    "login_success": "Login successful",
+    "password_mismatch": "Passwords do not match",
+    "confirm_password": "Confirm Password"
   },
   "hero": {
     "subtitle": "Premium Performance Fitness",
@@ -97,7 +101,34 @@
     "make_admin": "Make Admin",
     "confirm_role_change": "Change user role?",
     "total_members": "Total Members",
-    "active_admins": "Active Admins"
+    "active_admins": "Active Admins",
+    "overview_subtitle": "Overview Subtitle",
+    "new_location_btn": "New Location Btn",
+    "total_bookings": "Total Bookings",
+    "class_deleted": "Class Deleted",
+    "no_data": "No data available.",
+    "no_results_search": "No results found.",
+    "table": {
+      "actions": "Actions",
+      "title_type": "Title & Type",
+      "day_time": "Day & Time",
+      "trainer": "Trainer"
+    },
+    "confirm_delete_location": "Confirm Delete Location",
+    "locations_subtitle": "Locations Subtitle",
+    "edit_class": "Edit Class",
+    "location_deleted": "Location Deleted",
+    "role_change_msg": "Do you want to change the role of this user?",
+    "confirm_delete_class": "Confirm Delete Class",
+    "classes_mgmt": "Classes Mgmt",
+    "locations_title": "Locations Title",
+    "total_classes": "Total Classes",
+    "class_saved": "Class Saved",
+    "update_success": "Update successful.",
+    "overview_title": "Overview Title",
+    "create_class": "Create Class",
+    "members_list": "Members List",
+    "location_saved": "Location Saved"
   },
   "member": {
     "bookings_title": "My Bookings",
@@ -148,7 +179,9 @@
       "day_time": "Day / Time",
       "trainer": "Instructor",
       "actions": "Actions"
-    }
+    },
+    "since": "Member since",
+    "active": "Active"
   },
   "modals": {
     "title": "Personal Profile",
@@ -215,7 +248,8 @@
       "cardio": "Cardio",
       "combat": "Combat",
       "bootcamp": "Bootcamp"
-    }
+    },
+    "notice": "Notice: Schedules may vary."
   },
   "contact": {
     "title": "READY TO",
@@ -265,5 +299,41 @@
       "Ouagadougou (Koulouba)",
       "Bobo-Dioulasso (Residential Zone)"
     ]
-  }
+  },
+  "profile": {
+    "save_profile": "Save Profile",
+    "passwords_mismatch": "Passwords do not match.",
+    "security_password": "Security",
+    "confirm_password": "Confirm Password",
+    "profile_subtitle": "Manage your personal data.",
+    "new_password": "New Password",
+    "update_password": "Update Password",
+    "full_name": "Full Name",
+    "account_details": "Account Details",
+    "profile_title": "Profile"
+  },
+  "errors": {
+    "update_failed": "Update failed.",
+    "fetch_failed": "Error fetching data.",
+    "unexpected": "An unexpected error occurred."
+  },
+  "": {
+    "": ""
+  },
+  "bookings": {
+    "confirm_msg": "Are you sure you want to cancel?",
+    "no_data": "No bookings found."
+  },
+  "filters": {
+    "role": "Role"
+  },
+  "-": "-",
+  "common": {
+    "delete": "Delete",
+    "pending": "Pending..."
+  },
+  "*": "*",
+  "*, bookings(id)": "*, Bookings(Id)",
+  ",": ",",
+  " ": " "
 }

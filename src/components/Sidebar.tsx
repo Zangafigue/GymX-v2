@@ -9,7 +9,9 @@ import {
   Settings, 
   Dumbbell, 
   CheckSquare, 
-  LogOut 
+  LogOut,
+  TrendingUp,
+  Award
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useTranslation } from '../context/I18nContext';
@@ -17,13 +19,15 @@ import LogoutModal from './modals/LogoutModal';
 
 const Sidebar = () => {
   const { role, signOut } = useAuth();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const adminItems = [
     { name: t('dashboard.overview'),       path: '/admin',          icon: <LayoutDashboard size={20} /> },
+    { name: language === 'fr' ? 'Analytiques' : 'Analytics', path: '/admin/analytics', icon: <TrendingUp size={20} /> },
     { name: t('dashboard.locations'),      path: '/admin/locations', icon: <MapPin size={20} /> },
     { name: t('dashboard.members'),        path: '/admin/users',    icon: <Users size={20} /> },
+    { name: language === 'fr' ? 'Entraîneurs' : 'Trainers',  path: '/admin/trainers', icon: <Award size={20} /> },
     { name: t('dashboard.classes_manage'), path: '/admin/classes',  icon: <Calendar size={20} /> },
     { name: t('dashboard.profile'),        path: '/admin/profile',  icon: <User size={20} /> },
     { name: t('dashboard.settings'),       path: '/admin/settings', icon: <Settings size={20} /> },

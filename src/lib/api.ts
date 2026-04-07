@@ -87,6 +87,17 @@ export const profilesApi = {
     if (error) throw error;
     return data;
   },
+
+  updateName: async (userId: string, fullName: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({ full_name: fullName, updated_at: new Date().toISOString() })
+      .eq('id', userId)
+      .select()
+      .single();
+    
+    return { data, error };
+  },
 };
 
 // ─── Classes ─────────────────────────────────────────────────────────────────
@@ -209,6 +220,21 @@ export const bookingsApi = {
     const { error } = await supabase.from('bookings').delete().eq('id', bookingId);
     if (error) throw error;
   },
+
+  cancel: async (bookingId: string) => {
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({ 
+        status: 'cancelled', 
+        cancelled_at: new Date().toISOString(),
+        updated_at: new Date().toISOString() 
+      })
+      .eq('id', bookingId)
+      .select()
+      .single();
+    
+    return { data, error };
+  },
 };
 
 // ─── Locations ───────────────────────────────────────────────────────────────
@@ -233,6 +259,39 @@ export const locationsApi = {
 
   delete: async (id: string): Promise<void> => {
     const { error } = await supabase.from('locations').delete().eq('id', id);
+    if (error) throw error;
+  },
+};
+
+// ─── Trainers ───────────────────────────────────────────────────────────────
+
+export const trainersApi = {
+  getAll: async () => {
+    const { data, error } = await supabase
+      .from('trainers')
+      .select('*')
+      .order('full_name');
+    if (error) throw error;
+    return data || [];
+  },
+
+  create: async (data: any) => {
+    const { data: created, error } = await supabase
+      .from('trainers')
+      .insert([data])
+      .select()
+      .single();
+    if (error) throw error;
+    return created;
+  },
+
+  update: async (id: string, data: any) => {
+    const { error } = await supabase.from('trainers').update(data).eq('id', id);
+    if (error) throw error;
+  },
+
+  delete: async (id: string) => {
+    const { error } = await supabase.from('trainers').delete().eq('id', id);
     if (error) throw error;
   },
 };

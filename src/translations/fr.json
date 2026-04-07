@@ -24,7 +24,11 @@
     "no_account": "Pas encore de compte ?",
     "have_account": "Déjà membre ?",
     "signup_link": "Créer un compte",
-    "login_link": "Se connecter"
+    "login_link": "Se connecter",
+    "register_success": "Inscription avec succès",
+    "login_success": "Connexion réussie",
+    "password_mismatch": "Les mots de passe ne correspondent pas",
+    "confirm_password": "Confirmer le mot de passe"
   },
   "hero": {
     "subtitle": "Performance Fitness Premium",
@@ -97,7 +101,34 @@
     "make_admin": "Nommer Admin",
     "confirm_role_change": "Changer le rôle de l'utilisateur ?",
     "total_members": "Total Membres",
-    "active_admins": "Admins Actifs"
+    "active_admins": "Admins Actifs",
+    "overview_subtitle": "Overview Subtitle",
+    "new_location_btn": "New Location Btn",
+    "total_bookings": "Total Réservations",
+    "class_deleted": "Class Deleted",
+    "no_data": "Aucune donnée disponible.",
+    "no_results_search": "Aucun résultat trouvé.",
+    "table": {
+      "actions": "Actions",
+      "title_type": "Titre & Type",
+      "day_time": "Jour & Heure",
+      "trainer": "Coach"
+    },
+    "confirm_delete_location": "Confirm Delete Location",
+    "locations_subtitle": "Locations Subtitle",
+    "edit_class": "Edit Class",
+    "location_deleted": "Location Deleted",
+    "role_change_msg": "Voulez-vous modifier le rôle de cet utilisateur ?",
+    "confirm_delete_class": "Confirm Delete Class",
+    "classes_mgmt": "Classes Mgmt",
+    "locations_title": "Locations Title",
+    "total_classes": "Total Cours",
+    "class_saved": "Class Saved",
+    "update_success": "Mise à jour réussie.",
+    "overview_title": "Overview Title",
+    "create_class": "Create Class",
+    "members_list": "Members List",
+    "location_saved": "Location Saved"
   },
   "member": {
     "bookings_title": "Mes Réservations",
@@ -148,7 +179,9 @@
       "day_time": "Jour / Heure",
       "trainer": "Instructeur",
       "actions": "Actions"
-    }
+    },
+    "since": "Membre depuis",
+    "active": "Actif"
   },
   "modals": {
     "title": "Profil Personnel",
@@ -215,7 +248,8 @@
       "cardio": "Cardio",
       "combat": "Combat",
       "bootcamp": "Bootcamp"
-    }
+    },
+    "notice": "Note : les horaires peuvent varier."
   },
   "contact": {
     "title": "PRÊT À",
@@ -265,5 +299,41 @@
       "Ouagadougou (Koulouba)",
       "Bobo-Dioulasso (Zone Résidentielle)"
     ]
-  }
+  },
+  "profile": {
+    "save_profile": "Enregistrer",
+    "passwords_mismatch": "Les mots de passe ne correspondent pas.",
+    "security_password": "Sécurité",
+    "confirm_password": "Confirmer le mot de passe",
+    "profile_subtitle": "Gérez vos données personnelles.",
+    "new_password": "Nouveau mot de passe",
+    "update_password": "Mettre à jour le mot de passe",
+    "full_name": "Nom complet",
+    "account_details": "Détails du compte",
+    "profile_title": "Profil"
+  },
+  "errors": {
+    "update_failed": "La modification a échouée.",
+    "fetch_failed": "Erreur lors de la récupération des données.",
+    "unexpected": "Une erreur inattendue est survenue."
+  },
+  "": {
+    "": ""
+  },
+  "bookings": {
+    "confirm_msg": "Êtes-vous sûr de vouloir annuler ?",
+    "no_data": "Aucune réservation trouvée."
+  },
+  "filters": {
+    "role": "Rôle"
+  },
+  "-": "-",
+  "common": {
+    "delete": "Supprimer",
+    "pending": "En cours..."
+  },
+  "*": "*",
+  "*, bookings(id)": "*, Bookings(Id)",
+  ",": ",",
+  " ": " "
 }

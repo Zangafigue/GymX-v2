@@ -7,7 +7,6 @@ import {
   Lock,
   Eye,
   EyeOff,
-  CheckCircle2,
   Calendar,
   Zap,
   Save
@@ -16,8 +15,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
 import { useTranslation } from '../../context/I18nContext';
 import { useToast } from '../../components/ui/Toast';
-import { profilesApi, authApi } from '../../lib/api';
-import { getErrorMessage } from '../../lib/errors';
+import { useProfile } from '../../hooks/useProfile';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 
@@ -26,8 +24,7 @@ const Profile = () => {
   const { t, language } = useTranslation();
   const { addToast } = useToast();
 
-  const [saveLoading, setSaveLoading] = useState(false);
-  const [passwordLoading, setPasswordLoading] = useState(false);
+  const { loading: hookLoading, updateName, changePassword } = useProfile();
   
   const [fullName, setFullName] = useState(user?.user_metadata?.full_name || '');
   const [email] = useState(user?.email || '');
@@ -45,78 +42,21 @@ const Profile = () => {
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaveLoading(true);
-    
-    try {
-      if (!user) return;
-
-      // Update profile in DB
-      await profilesApi.update(user.id, { full_name: fullName });
-      
-      // Update auth metadata
-      await authApi.updateUser({
-        data: { full_name: fullName }
-      });
-
-      addToast({ 
-        type: 'success', 
-        message: t('profile.save_profile'),
-        icon: <CheckCircle2 size={18} />
-      });
-    } catch (err) {
-      addToast({ type: 'error', message: (err as Error).message });
-    } finally {
-      setSaveLoading(false);
-    }
+    await updateName(fullName);
   };
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user?.email) return;
-
     if (newPassword !== confirmPassword) {
       addToast({ type: 'error', message: t('profile.passwords_mismatch') });
       return;
     }
 
-    if (newPassword.length < 6) {
-      addToast({ 
-        type: 'error', 
-        message: language === 'fr' 
-          ? 'Le mot de passe doit contenir au moins 6 caractères.' 
-          : 'Password must be at least 6 characters.' 
-      });
-      return;
-    }
-
-    setPasswordLoading(true);
-    try {
-      // Step 1: Re-authenticate with current password (Phase 1 Requirement)
-      await authApi.signIn({
-        email: user.email,
-        password: currentPassword
-      });
-
-      // Step 2: Update with new password
-      await authApi.updateUser({
-        password: newPassword
-      });
-      
+    const success = await changePassword(currentPassword, newPassword);
+    if (success) {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      addToast({ 
-        type: 'success', 
-        message: t('profile.password_success'),
-        icon: <CheckCircle2 size={18} />
-      });
-    } catch (err) {
-      addToast({ 
-        type: 'error', 
-        message: getErrorMessage(err, language) 
-      });
-    } finally {
-      setPasswordLoading(false);
     }
   };
 
@@ -225,7 +165,7 @@ const Profile = () => {
                     <div className="flex justify-end pt-6 border-t border-[var(--color-border-subtle)]">
                         <Button 
                             type="submit" 
-                            loading={saveLoading}
+                            loading={hookLoading}
                             icon={<Save size={18} />}
                             className="!px-12 !rounded-2xl italic font-display uppercase text-sm tracking-widest"
                         >
@@ -294,7 +234,7 @@ const Profile = () => {
                             type="submit"
                             variant="secondary"
                             disabled={!newPassword}
-                            loading={passwordLoading}
+                            loading={hookLoading}
                             className="!px-12 !rounded-2xl italic font-display uppercase text-sm tracking-widest"
                         >
                             {t('profile.update_password')}
