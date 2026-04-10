@@ -191,8 +191,8 @@ const AdminTrainers = () => {
     <div className="flex flex-col gap-8">
       <PageHeader 
         title={language === 'fr' ? 'Gérer les Entraîneurs' : 'Manage Trainers'}
-        description={language === 'fr' ? 'Ajoutez, modifiez ou supprimez des entraîneurs.' : 'Add, edit, or delete trainers.'}
-        action={
+        subtitle={language === 'fr' ? 'Ajoutez, modifiez ou supprimez des entraîneurs.' : 'Add, edit, or delete trainers.'}
+        actions={
           <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
             <Plus size={18} />
             {language === 'fr' ? 'Nouvel Entraîneur' : 'New Trainer'}

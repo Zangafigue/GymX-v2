@@ -205,15 +205,14 @@ export const bookingsApi = {
     return !!data;
   },
 
-  create: async (userId: string, classId: string): Promise<Booking> => {
-    const { data, error } = await supabase
-      .from('bookings')
-      .insert([{ user_id: userId, class_id: classId }])
-      .select()
-      .single();
+  create: async (_userId: string, classId: string): Promise<Booking> => {
+    const { data, error } = await supabase.functions.invoke('create-booking', {
+      body: { class_id: classId }
+    });
     
     if (error) throw error;
-    return data;
+    if (!data.success) throw new Error(data.error);
+    return data.booking;
   },
 
   delete: async (bookingId: string): Promise<void> => {
@@ -222,18 +221,13 @@ export const bookingsApi = {
   },
 
   cancel: async (bookingId: string) => {
-    const { data, error } = await supabase
-      .from('bookings')
-      .update({ 
-        status: 'cancelled', 
-        cancelled_at: new Date().toISOString(),
-        updated_at: new Date().toISOString() 
-      })
-      .eq('id', bookingId)
-      .select()
-      .single();
+    const { data, error } = await supabase.functions.invoke('cancel-booking', {
+      body: { booking_id: bookingId }
+    });
     
-    return { data, error };
+    if (error) throw error;
+    if (!data.success) throw new Error(data.error);
+    return { data, error: null };
   },
 };
 
@@ -292,6 +286,40 @@ export const trainersApi = {
 
   delete: async (id: string) => {
     const { error } = await supabase.from('trainers').delete().eq('id', id);
+    if (error) throw error;
+  },
+};
+
+// ─── Notifications ────────────────────────────────────────────────────────────
+
+export const notificationsApi = {
+  getByUser: async (userId: string) => {
+    const { data, error } = await supabase
+      .from('notifications')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data || [];
+  },
+
+  markAsRead: async (id: string) => {
+    const { error } = await supabase
+      .from('notifications')
+      .update({ is_read: true })
+      .eq('id', id);
+    
+    if (error) throw error;
+  },
+
+  markAllAsRead: async (userId: string) => {
+    const { error } = await supabase
+      .from('notifications')
+      .update({ is_read: true })
+      .eq('user_id', userId)
+      .eq('is_read', false);
+    
     if (error) throw error;
   },
 };

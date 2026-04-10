@@ -1,6 +1,8 @@
 import { Check, Zap, Shield, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../context/I18nContext';
+import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
 
@@ -50,6 +52,17 @@ const plans = [
 
 const Pricing = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSelectPlan = (planKey: string) => {
+    const planName = planKey.split('.')[1];
+    if (!user) {
+      navigate('/register');
+      return;
+    }
+    navigate('/dashboard/subscription', { state: { plan: planName } });
+  };
 
   return (
     <section id="pricing" className="py-32 bg-[var(--color-bg-base)] relative overflow-hidden">
@@ -135,6 +148,7 @@ const Pricing = () => {
                   fullWidth
                   size="lg"
                   className="!rounded-2xl"
+                  onClick={() => handleSelectPlan(plan.nameKey)}
                 >
                   {plan.isFeatured ? t('pricing.cta_become_pro') : t('pricing.cta_get_started')}
                 </Button>

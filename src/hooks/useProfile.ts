@@ -56,8 +56,7 @@ export const useProfile = () => {
       );
 
       // Step 2: Update to new password
-      const { error } = await authApi.updateUser({ password: newPassword });
-      if (error) throw error;
+      await authApi.updateUser({ password: newPassword });
 
       addToast({
         type: 'success',

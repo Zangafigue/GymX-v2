@@ -11,7 +11,6 @@ import { useAuth } from './useAuth';
 import { useToast } from '../components/ui/Toast';
 import { useTranslation } from '../context/I18nContext';
 import { getErrorMessage } from '../lib/errors';
-import { sendBookingConfirmation } from '../lib/email';
 import type { GymClass } from '../types';
 
 export const useClasses = () => {
@@ -50,37 +49,12 @@ export const useClasses = () => {
       return false;
     }
 
-    const targetClass = classes.find(c => c.id === classId);
-    if (!targetClass) return false;
-
-    // Check capacity
-    const currentBookings = targetClass.bookings?.length ?? 0;
-    if (currentBookings >= targetClass.capacity) {
-      addToast({
-        type: 'warning',
-        message: language === 'fr' ? 'Ce cours est complet.' : 'This class is full.',
-      });
-      return false;
-    }
-
     setBookingLoading(classId);
     try {
-      // Check if already booked
-      const exists = await bookingsApi.checkExisting(user.id, classId);
-      if (exists) {
-        addToast({
-          type: 'info',
-          message: language === 'fr'
-            ? 'Vous avez déjà réservé ce cours.'
-            : 'You have already booked this class.',
-        });
-        return false;
-      }
-
-      // Create booking
+      // Logic (capacity, existing booking, notifications, emails) 
+      // is now handled atomically by the Supabase Edge Function
       const newBooking = await bookingsApi.create(user.id, classId);
-      if (!newBooking) throw new Error('Failed to create booking');
-
+      
       // Update local state to reflect the new booking
       setClasses(prev => prev.map(c => 
         c.id === classId 
@@ -91,19 +65,9 @@ export const useClasses = () => {
       addToast({
         type: 'success',
         message: language === 'fr' 
-          ? `"${targetClass.title}" réservé !`
-          : `"${targetClass.title}" booked!`,
+          ? `Réservation confirmée !`
+          : `Booking confirmed!`,
       });
-
-      // Send email confirmation (async, non-blocking)
-      if (user.email) {
-        sendBookingConfirmation(
-          user.email,
-          targetClass.title,
-          targetClass.day,
-          targetClass.time
-        );
-      }
 
       return true;
     } catch (err) {
@@ -115,7 +79,7 @@ export const useClasses = () => {
     } finally {
       setBookingLoading(null);
     }
-  }, [user, classes, language, addToast]);
+  }, [user, language, addToast]);
 
   useEffect(() => {
     fetchClasses();

@@ -24,6 +24,7 @@ import AdminTrainers from './pages/admin/Trainers';
 import MemberDashboard from './pages/member/Dashboard';
 import MemberBookings from './pages/member/Bookings';
 import MemberSettings from './pages/member/Settings';
+import MemberSubscription from './pages/member/Subscription';
 
 // Shared Pages
 import Profile from './pages/shared/Profile';
@@ -62,6 +63,7 @@ function App() {
                   >
                     <Route index element={<MemberDashboard />} />
                     <Route path="bookings" element={<MemberBookings />} />
+                    <Route path="subscription" element={<MemberSubscription />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="settings" element={<MemberSettings />} />
                   </Route>

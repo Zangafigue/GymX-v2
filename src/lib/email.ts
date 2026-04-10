@@ -29,14 +29,19 @@ export const sendEmail = async ({ to, subject, html }: EmailPayload) => {
   }
 
   // In production: call the Edge Function
-  // This part will be implemented in Phase 3
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  
   try {
     const res = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${anonKey}`
+      },
       body: JSON.stringify({ to, subject, html }),
     });
+    
     if (!res.ok) throw new Error(`Email service error: ${res.status}`);
     return { success: true, mode: 'production' };
   } catch (err) {

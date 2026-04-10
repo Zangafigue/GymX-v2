@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../Sidebar';
+import NotificationBell from '../NotificationBell';
 import { useAuth } from '../../hooks/useAuth';
 
 const DashboardLayout = () => {
@@ -22,12 +23,16 @@ const DashboardLayout = () => {
             </h2>
           </div>
 
-          <div className="flex items-center gap-4 bg-gym-slate px-4 py-2 rounded-full border border-white border-opacity-5">
-            <div className="w-8 h-8 bg-gym-red rounded-full flex items-center justify-center font-bold text-sm">
-                {user.email?.[0].toUpperCase()}
-            </div>
-            <div className="hidden sm:block text-xs font-bold tracking-widest text-gray-300">
-                {user.email}
+          <div className="flex items-center gap-6">
+            <NotificationBell />
+            
+            <div className="flex items-center gap-4 bg-gym-slate px-4 py-2 rounded-full border border-white border-opacity-5">
+              <div className="w-8 h-8 bg-gym-red rounded-full flex items-center justify-center font-bold text-sm">
+                  {user.email?.[0].toUpperCase()}
+              </div>
+              <div className="hidden sm:block text-xs font-bold tracking-widest text-gray-300">
+                  {user.email}
+              </div>
             </div>
           </div>
         </header>

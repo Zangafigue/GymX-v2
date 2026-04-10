@@ -7,13 +7,12 @@
  * - Top 5 most booked classes — BarChart
  */
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { supabase } from '../../lib/supabase';
-import { StatCardSkeleton } from '../../components/ui/Skeleton';
 import { useTranslation } from '../../context/I18nContext';
 
 const COLORS = ['#FF3131', '#3b82f6', '#22c55e', '#f59e0b', '#a855f7'];
@@ -80,9 +79,7 @@ const AdminAnalytics = () => {
     }
   };
 
-  const getDayFormat = (day: string) => {
-      return day;
-  }
+
 
   return (
     <div className="flex flex-col gap-10">
@@ -142,7 +139,7 @@ const AdminAnalytics = () => {
                   cx="50%"
                   cy="50%"
                   outerRadius={90}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name} ${( (percent || 0) * 100).toFixed(0)}%`}
                   labelLine={{ stroke: 'var(--color-text-muted)' }}
                 >
                   {classByType.map((_, i) => (
