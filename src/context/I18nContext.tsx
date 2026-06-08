@@ -21,7 +21,7 @@ import type { Language } from '../types';
 interface I18nContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string, options?: Record<string, any> | string | number) => any;
+  t: (key: string, options?: Record<string, unknown> | string | number) => string;
 }
 
 const STORAGE_KEY = 'gymx_lang';
@@ -65,8 +65,8 @@ const translations: Record<Language, Record<string, unknown>> = { fr, en };
 const resolveKey = (
   lang: Language,
   key: string,
-  paramsOrOptions?: any
-): any => {
+  paramsOrOptions?: Record<string, unknown> | string | number
+): string => {
   const keys = key.split('.');
   let value: unknown = translations[lang];
 
@@ -82,17 +82,20 @@ const resolveKey = (
     }
   }
 
-  // Si on attend un objet/tableau
-  const returnObjects = typeof paramsOrOptions === 'object' && paramsOrOptions?.returnObjects === true;
-
-  if (typeof value !== 'string') {
-    if (returnObjects || typeof value === 'object') return value;
-    return key;
-  }
-
   // Interpolation des paramètres : {name} → valeur
   // On gère à la fois t(key, {name: 'Val'}) et t(key, name)
-  const params = typeof paramsOrOptions === 'object' ? paramsOrOptions : null;
+  const params =
+    typeof paramsOrOptions === 'object' && paramsOrOptions !== null
+      ? paramsOrOptions
+      : null;
+
+  // Si on attend un objet/tableau (ex: footer.centers) — l'appelant cast au besoin
+  const returnObjects = params?.returnObjects === true;
+
+  if (typeof value !== 'string') {
+    if (returnObjects || typeof value === 'object') return value as unknown as string;
+    return key;
+  }
 
   if (params) {
     return value.replace(/\{(\w+)\}/g, (_, k) =>
@@ -113,7 +116,7 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
     document.documentElement.setAttribute('lang', lang);
   };
 
-  const t = (key: string, options?: any): any => {
+  const t = (key: string, options?: Record<string, unknown> | string | number): string => {
     return resolveKey(language, key, options);
   };
 

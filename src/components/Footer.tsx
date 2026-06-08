@@ -55,8 +55,8 @@ const Footer = () => {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-[0.2em] mb-10 text-white italic font-display">{t('footer.locations')}</h4>
             <ul className="flex flex-col gap-6">
-              {(Array.isArray(t('footer.centers', { returnObjects: true })) 
-                ? t('footer.centers', { returnObjects: true }) 
+              {(Array.isArray(t('footer.centers', { returnObjects: true }))
+                ? (t('footer.centers', { returnObjects: true }) as unknown as string[])
                 : []).map((center: string, i: number) => (
                 <li key={i} className="flex items-start gap-3">
                   <MapPin size={18} className="text-[var(--color-primary)] shrink-0 mt-0.5" />

@@ -45,7 +45,12 @@ export const Button = <T extends React.ElementType = 'button'>({
   ...props
 }: ButtonProps<T>) => {
   const Component = as || 'button';
-  
+
+  // Composant polymorphe (`as`) : les props restantes ne peuvent pas être typées
+  // statiquement face à un élément dynamique.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rest = props as any;
+
   const classes = [
     VARIANT_CLASSES[variant],
     SIZE_CLASSES[size],
@@ -58,7 +63,7 @@ export const Button = <T extends React.ElementType = 'button'>({
     <Component
       disabled={Component === 'button' ? (disabled || loading) : undefined}
       className={classes}
-      {...(props as any)}
+      {...rest}
     >
       {loading ? (
         <Loader2 size={14} className="animate-spin" />

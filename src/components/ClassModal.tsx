@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '../context/I18nContext';
 import { Input } from './ui/Input';
 import { Button } from './ui/Button';
-import type { ClassType, DayOfWeek } from '../types';
+import type { ClassType, DayOfWeek, GymClassFormData } from '../types';
 
 interface GymClassForm {
   title: string;
@@ -18,8 +18,8 @@ interface GymClassForm {
 interface ClassModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (data: GymClassForm) => Promise<void>;
-  initialData?: GymClassForm | null;
+  onSave: (data: GymClassFormData) => Promise<void>;
+  initialData?: GymClassFormData | null;
 }
 
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -64,10 +64,10 @@ const ClassModal: React.FC<ClassModalProps> = ({ isOpen, onClose, onSave, initia
     setLoading(true);
     try {
       // API expects capitalized days/types as per existing DB data, but we use lowercase for keys
-      const submitData = {
+      const submitData: GymClassFormData = {
         ...formData,
-        day: formData.day.charAt(0).toUpperCase() + formData.day.slice(1),
-        type: formData.type.charAt(0).toUpperCase() + formData.type.slice(1),
+        day: (formData.day.charAt(0).toUpperCase() + formData.day.slice(1)) as DayOfWeek,
+        type: (formData.type.charAt(0).toUpperCase() + formData.type.slice(1)) as ClassType,
       };
       await onSave(submitData);
       onClose();

@@ -14,7 +14,7 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const { user, supabase: userClient } = await getAuthenticatedUser(req);
+    const { user } = await getAuthenticatedUser(req);
 
     // Client admin (bypasse le RLS pour les vérifications)
     const adminClient = createClient(

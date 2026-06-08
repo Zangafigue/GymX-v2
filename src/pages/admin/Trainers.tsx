@@ -56,6 +56,7 @@ const AdminTrainers = () => {
 
   useEffect(() => {
     fetchTrainers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
   const handleOpenModal = (trainer?: Trainer) => {

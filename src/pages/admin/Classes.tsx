@@ -69,12 +69,12 @@ const ManageClasses = () => {
             icon: <CheckCircle2 size={18} />
           });
           fetchClasses();
-      } catch (_err) {
+      } catch {
           addToast({ type: 'error', message: t('errors.unexpected') });
       }
   };
 
-  const handleSaveClass = async (data: any) => {
+  const handleSaveClass = async (data: GymClassFormData) => {
       try {
           if (editingClass) {
               await classesApi.update(editingClass.id, data as GymClassFormData);

@@ -33,12 +33,13 @@ const Subscription = () => {
       if (data.checkout_url) {
         window.location.href = data.checkout_url;
       }
-    } catch (err: any) {
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
       addToast({
         type: 'error',
-        message: language === 'fr' 
-          ? `Erreur de paiement: ${err.message}` 
-          : `Payment error: ${err.message}`
+        message: language === 'fr'
+          ? `Erreur de paiement: ${message}`
+          : `Payment error: ${message}`
       });
     } finally {
       setLoading(false);

@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Bell, Check, Trash2, ExternalLink } from 'lucide-react';
+import { Bell, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { notificationsApi } from '../lib/api';
 import { useTranslation } from '../context/I18nContext';
 import { useToast } from './ui/Toast';
-import { Button } from './ui/Button';
 
 interface Notification {
   id: string;
@@ -38,11 +37,14 @@ const NotificationBell = () => {
   };
 
   useEffect(() => {
+    // Chargement initial + rafraîchissement périodique (fetch asynchrone légitime)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchNotifications();
     
     // Refresh every minute
     const interval = setInterval(fetchNotifications, 60000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   // Close dropdown on click outside
@@ -60,7 +62,7 @@ const NotificationBell = () => {
     try {
       await notificationsApi.markAsRead(id);
       setNotifications(prev => prev.map(n => n.id === id ? { ...n, is_read: true } : n));
-    } catch (err) {
+    } catch {
       addToast({ type: 'error', message: 'Failed to update notification' });
     }
   };
@@ -70,7 +72,7 @@ const NotificationBell = () => {
     try {
       await notificationsApi.markAllAsRead(user.id);
       setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
-    } catch (err) {
+    } catch {
       addToast({ type: 'error', message: 'Failed to update notifications' });
     }
   };

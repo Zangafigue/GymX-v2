@@ -6,6 +6,7 @@
  */
 
 import { supabase } from './supabase';
+import type { UserAttributes } from '@supabase/supabase-js';
 import type {
   Profile,
   GymClass,
@@ -14,6 +15,7 @@ import type {
   Location,
   LocationFormData,
   AuthCredentials,
+  TrainerFormData,
 } from '../types';
 
 // ─── Authentication ──────────────────────────────────────────────────────────
@@ -45,7 +47,7 @@ export const authApi = {
     if (error) throw error;
   },
 
-  updateUser: async (data: any) => {
+  updateUser: async (data: UserAttributes) => {
     const { data: updated, error } = await supabase.auth.updateUser(data);
     if (error) throw error;
     return updated;
@@ -269,7 +271,7 @@ export const trainersApi = {
     return data || [];
   },
 
-  create: async (data: any) => {
+  create: async (data: TrainerFormData) => {
     const { data: created, error } = await supabase
       .from('trainers')
       .insert([data])
@@ -279,7 +281,7 @@ export const trainersApi = {
     return created;
   },
 
-  update: async (id: string, data: any) => {
+  update: async (id: string, data: Partial<TrainerFormData>) => {
     const { error } = await supabase.from('trainers').update(data).eq('id', id);
     if (error) throw error;
   },

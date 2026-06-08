@@ -23,7 +23,7 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const { user } = await getAuthenticatedUser(req);
+    await getAuthenticatedUser(req); // Valide que l'appelant est authentifié
     const { plan, payment_method }: SubscriptionRequest = await req.json();
 
     const price = PRICES[plan as keyof typeof PRICES];

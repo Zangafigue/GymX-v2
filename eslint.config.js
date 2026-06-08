@@ -19,5 +19,10 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      // Co-localisation volontaire des Context/Provider avec leurs hooks (useToast,
+      // useTranslation, useTheme...). N'impacte que le Fast Refresh en dev, pas le build.
+      'react-refresh/only-export-components': 'warn',
+    },
   },
 ])

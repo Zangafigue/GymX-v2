@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useTranslation } from '../../context/I18nContext';
@@ -31,12 +31,6 @@ const MemberDashboard = () => {
   const [isEditingName, setIsEditingName] = useState(false);
   const [newName, setNewName] = useState(user?.user_metadata?.full_name || '');
 
-  useEffect(() => {
-    if (user) {
-      setNewName(user.user_metadata?.full_name || '');
-    }
-  }, [user]);
-
   const handleUpdateName = async () => {
     if (!newName.trim()) return;
     const success = await updateName(newName);
@@ -47,14 +41,14 @@ const MemberDashboard = () => {
     {
       key: 'class',
       header: t('dashboard.class'),
-      render: (b: any) => (
+      render: (b: Booking) => (
         <span className="font-bold text-[var(--color-text-primary)]">{b.classes?.title || 'Unknown Class'}</span>
       )
     },
     {
       key: 'day_time',
       header: t('dashboard.day_time'),
-      render: (b: any) => (
+      render: (b: Booking) => (
         <div className="flex flex-col">
           <span className="font-medium">{b.classes?.day || '-'}</span>
           <span className="text-[var(--color-primary)] text-[10px] font-bold uppercase">{b.classes?.time || '-'}</span>
@@ -64,13 +58,13 @@ const MemberDashboard = () => {
     {
       key: 'trainer',
       header: t('dashboard.trainer'),
-      render: (b: any) => b.classes?.trainer || t('common.pending')
+      render: (b: Booking) => b.classes?.trainer || t('common.pending')
     },
     {
       key: 'actions',
       header: t('dashboard.actions'),
       align: 'right' as const,
-      render: (b: any) => (
+      render: (b: Booking) => (
         <Button 
           variant="ghost" 
           size="sm" 

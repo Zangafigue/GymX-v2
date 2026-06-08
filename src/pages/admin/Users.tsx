@@ -31,6 +31,7 @@ const ManageUsers = () => {
 
   useEffect(() => {
     fetchProfiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProfiles = async () => {
@@ -61,7 +62,7 @@ const ManageUsers = () => {
       await profilesApi.update(id, { role: newRole });
       addToast({ type: 'success', message: t('admin.update_success') || 'User role updated!' });
       setProfiles(prev => prev.map(p => p.id === id ? { ...p, role: newRole } : p));
-    } catch (err) {
+    } catch {
       addToast({ type: 'error', message: t('errors.update_failed') });
     }
   };
@@ -195,7 +196,7 @@ const ManageUsers = () => {
             </span>
             <select 
               value={filterRole}
-              onChange={(e) => setFilterRole(e.target.value as any)}
+              onChange={(e) => setFilterRole(e.target.value as 'all' | 'admin' | 'member')}
               className="bg-[var(--color-bg-subtle)] border border-[var(--color-border-default)] px-4 py-2.5 rounded-xl text-sm font-medium focus:border-[var(--color-primary)] outline-none text-[var(--color-text-primary)] cursor-pointer hover:bg-[var(--color-surface-3)] transition-colors"
             >
               <option value="all">Tous les rôles</option>

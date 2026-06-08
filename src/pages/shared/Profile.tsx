@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { 
+import { useState } from 'react';
+import {
   User, 
   Mail, 
   Shield, 
@@ -33,12 +33,6 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    if (user?.user_metadata?.full_name) {
-      setFullName(user.user_metadata.full_name);
-    }
-  }, [user]);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();

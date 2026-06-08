@@ -81,9 +81,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Au montage : appliquer le thème sauvegardé
   useEffect(() => {
-    const resolved = resolveTheme(theme);
-    setResolvedTheme(resolved);
-    applyTheme(resolved);
+    applyTheme(resolveTheme(theme));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Écouter les changements de préférence système

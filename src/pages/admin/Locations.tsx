@@ -74,7 +74,7 @@ const ManageLocations = () => {
           });
           setIsModalOpen(false);
           fetchLocations();
-      } catch (err) {
+      } catch {
           addToast({ type: 'error', message: t('errors.unexpected') });
       } finally {
           setSaveLoading(false);
@@ -99,7 +99,7 @@ const ManageLocations = () => {
             icon: <CheckCircle2 size={18} />
           });
           fetchLocations();
-      } catch (err) {
+      } catch {
           addToast({ type: 'error', message: t('errors.unexpected') });
       }
   };
